@@ -1,0 +1,36 @@
+          SIMULATE
+* Define Ampervariables
+          INTEGER    &LIMIT
+          REAL       &IAT
+          LET        &LIMIT=100
+          LET        &IAT=.208333
+* Block Statements
+          GENERATE   RVEXPO(1,&IAT)
+          QUEUE      TOTAL
+          TRANSFER   .6,NEW,OLD
+ NEW      QUEUE      NEWER
+          ENTER      1,1
+          SEIZE      TUG
+          ADVANCE    .0208333,.00694444
+          RELEASE    TUG
+          ADVANCE    .8,.1
+          DEPART     NEWER
+          LEAVE      1,1
+          TRANSFER   ,FIN
+ OLD      QUEUE      OLDER
+          ENTER      2,1
+          SEIZE      TUG
+          ADVANCE    .0208333,.00694444
+          RELEASE    TUG
+          ADVANCE    1.5,.2
+          DEPART     OLDER
+          LEAVE      2,1
+ FIN      DEPART     TOTAL
+          TERMINATE
+*
+          STORAGE    S1,2/S2,4
+*
+          GENERATE   &LIMIT
+          TERMINATE  1
+          START      1
+          END

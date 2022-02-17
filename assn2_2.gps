@@ -1,0 +1,27 @@
+          SIMULATE
+          INITIAL    X2,15
+* Define Ampervariables
+          INTEGER    &LIMIT
+          LET        &LIMIT=60000
+* Block Statements
+          GENERATE   RVEXPO(1,X2)
+          TRANSFER   .75,FEM,MAL
+ FEM      QUEUE      FEMALE
+          ENTER      1,1
+          DEPART     FEMALE
+          ADVANCE    10,3
+          LEAVE      1,1
+          TRANSFER   ,SKIP
+ MAL      QUEUE      MALE
+          SEIZE      MALE
+          DEPART     MALE
+          ADVANCE    8,2
+          RELEASE    MALE
+ SKIP     TERMINATE
+*
+          STORAGE    S1,2
+*
+          GENERATE   &LIMIT
+          TERMINATE  1
+          START      1
+          END

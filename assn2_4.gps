@@ -1,0 +1,34 @@
+          SIMULATE
+          INITIAL    X4,32/X5,25/X6,28
+* Define Ampervariables
+          INTEGER    &LIMIT
+          REAL       &IAT
+          LET        &LIMIT=120000
+          LET        &IAT=6
+* Block Statements
+          GENERATE   RVEXPO(1,&IAT)
+          SEIZE      TRIAGE
+          ADVANCE    5,2
+          RELEASE    TRIAGE
+          TRANSFER   .7,ERR,REG
+ ERR      SEIZE      SERIOUS
+          ADVANCE    20,3
+          RELEASE    SERIOUS
+          TRANSFER   ,DIS
+ REG      SELECT MIN 5,4,6,,Q
+          QUEUE      *5
+          SEIZE      *5
+          DEPART     *5
+          ADVANCE    RVEXPO(2,X*5)
+          RELEASE    *5
+ DIS      SEIZE      DISCHARG
+          ADVANCE    7,1
+          RELEASE    DISCHARG
+          TABULATE   RES
+          TERMINATE
+
+          GENERATE   &LIMIT
+ RES      TABLE      M1,60,30,10
+          TERMINATE  1
+          START      1
+          END
